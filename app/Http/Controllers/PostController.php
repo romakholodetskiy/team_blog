@@ -71,9 +71,9 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Post $post)
     {
-        //
+        return view('post.edit', compact('post'));
     }
 
     /**
@@ -91,4 +91,10 @@ class PostController extends Controller
     {
         //
     }
+    public function myBlog()
+    {
+        $posts = Post::where('author_id', Auth::id())->latest()->paginate(6);
+        return view('blog', compact('posts'));
+    }
+
 }

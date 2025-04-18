@@ -1,3 +1,108 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Контейнер для всієї сторінки */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 16px;
+}
+/* Карточка поста */
+.container > div > div {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 16px;
+    margin-bottom: 24px;
+    transition: transform 0.3s ease;
+}
+
+.container > div > div:hover {
+    transform: scale(1.01);
+}
+
+/* Зображення */
+.container img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+/* Назва поста */
+.container h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* Опис */
+.container p {
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 12px;
+}
+
+/* Категорії */
+.container p strong {
+    color: #374151;
+}
+
+/* Іконки лайку/дизлайку */
+.container > div > div > div i {
+    font-size: 20px;
+    margin-right: 16px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    color: #6b7280;
+}
+
+.container > div > div > div i:hover:first-child {
+    color: #22c55e; /* лайк — зелений */
+}
+
+.container > div > div > div i:hover:last-child {
+    color: #ef4444; /* дизлайк — червоний */
+}
+
+/* Кнопка "Go to article" */
+.container a[href*="post.show"] {
+    display: inline-block;
+    background-color: #2563eb;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+
+.container a[href*="post.show"]:hover {
+    background-color: #1d4ed8;
+}
+
+/* Пагінація */
+.mt-6 {
+    margin-top: 24px;
+    text-align: center;
+}
+/* Сітка постів */
+.container > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+}
+
+/* Кожна карточка */
+.container > div > div {
+    flex: 0 1 calc(33.333% - 24px); /* 3 карточки в ряд */
+    box-sizing: border-box;
+}
+
+/* Адаптив під телефон — 1 карточка в ряд */
+@media (max-width: 768px) {
+    .container > div > div {
+        flex: 0 1 100%;
+    }
+}
