@@ -18,6 +18,7 @@ class RatingController extends Controller
                 $rating->delete();
             }else{
                 $rating->liked = $status;
+                $rating->is_read = 0;
                 $rating->save();
             }
         }else{
@@ -25,6 +26,7 @@ class RatingController extends Controller
             $rating->user_id = Auth::id();
             $rating->post_id = $post->id;
             $rating->liked = $status;
+            $rating->is_read = 0;
             $rating->save();
         }
         return redirect()->back();

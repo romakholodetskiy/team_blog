@@ -49,4 +49,10 @@ class User extends Authenticatable
     public static function findById(string $id){
         return self::find($id)->name;
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
 }

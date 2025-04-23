@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Post;
+
 
 class Rating extends Model
 {
@@ -23,5 +26,19 @@ class Rating extends Model
             return $status->liked;
         }
         return false;
+    }
+
+    protected $fillable = [
+        'user_id', 'post_id', 'liked', 'is_read'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
     }
 }

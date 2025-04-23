@@ -47,3 +47,7 @@ Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name
 
 Route::post('/rating/{post}' , [RatingController::class, 'index'])->name('rating.index');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile/activity', [ProfileController::class, 'activity'])->name('profile.activity');
+    Route::post('/profile/mark-read', [ProfileController::class, 'markRead'])->name('profile.markRead');
+});
