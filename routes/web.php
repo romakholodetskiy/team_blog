@@ -51,5 +51,7 @@ Route::get('/comment/{comment}', [CommentController::class, 'edit'])->name('comm
 Route::patch('/comment/{comment}', [CommentController::class, 'update'])->name('comment.update');
 Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
 
-Route::post('/rating/{post}' , [RatingController::class, 'index'])->name('rating.index');
+Route::post('/rating/{post}', [RatingController::class, 'index'])->name('rating.index');
+Route::patch('/rating', [RatingController::class, 'patch'])->name('rating.patch');
 
+Route::patch('/comment', [CommentController::class, 'patch'])->name('comment.patch');

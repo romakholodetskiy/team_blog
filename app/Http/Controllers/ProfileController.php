@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Comment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Rating;
+use Laravel\Prompts\Table;
+
 
 class ProfileController extends Controller
 {
@@ -16,8 +20,22 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $ratings = $this->getData(Rating::class);
+            $ratingsId = [];
+        foreach ($ratings as $rating) {
+            $ratingsId[] = $rating->id;
+        }
+        $comments = $this->getData( Comment::class);
+        $commentsId = [];
+        foreach ($comments as $comment) {
+            $commentsId[] = $comment->id;
+        }
         return view('profile.edit', [
             'user' => $request->user(),
+            'ratings' => $ratings,
+            'ratingsId' => $ratingsId,
+            'commentsId' => $commentsId,
+            'comments' => $comments,
         ]);
     }
 
@@ -57,4 +75,18 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function getData($class)
+    {
+        $array = $class::whereHas('post', function ($query) {
+            $query->where('author_id', auth()->id());
+        })
+            ->where('user_id', '!=', auth()->id())
+            ->where('is_read', 0)
+            ->with(['post.user', 'user'])
+            ->get();
+        return $array;
+    }
 }
+
+

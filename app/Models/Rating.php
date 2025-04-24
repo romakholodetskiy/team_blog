@@ -31,4 +31,21 @@ class Rating extends Model
             $rating->delete();
         }
     }
+
+    protected $fillable = [
+        'user_id',
+        'post_id',
+        'liked',
+        'is_read'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }
