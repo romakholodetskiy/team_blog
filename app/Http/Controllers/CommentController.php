@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -73,6 +74,17 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         $comment->delete();
+        return redirect()->back();
+    }
+
+    public function patch(Request $request)
+    {
+        if (explode(',', $request->items[0])) {
+            $comments = explode(',', $request->items[0]);
+        } else{
+            $comments = $request->items;
+        }
+        Comment::whereIn('id', $comments)->update(['is_read'=>1]);
         return redirect()->back();
     }
 }

@@ -1,4 +1,3 @@
-{{--@dd($ratings);--}}
 @if($ratings->isEmpty())
     <p class="text-gray-600">No new likes.</p>
 @else

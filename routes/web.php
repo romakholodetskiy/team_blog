@@ -54,3 +54,4 @@ Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name
 Route::post('/rating/{post}', [RatingController::class, 'index'])->name('rating.index');
 Route::patch('/rating', [RatingController::class, 'patch'])->name('rating.patch');
 
+Route::patch('/comment', [CommentController::class, 'patch'])->name('comment.patch');

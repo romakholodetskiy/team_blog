@@ -38,8 +38,6 @@ class RatingController extends Controller
         } else{
             $ratings = $request->items;
         }
-//        dd($ratings);
-//        dd($request->items);
         Rating::whereIn('id', $ratings)->update(['is_read'=>1]);
         return redirect()->back();
     }
