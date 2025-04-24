@@ -31,5 +31,16 @@ class RatingController extends Controller
         }
         return redirect()->back();
     }
-
+    public function patch(Request $request)
+    {
+        if (explode(',', $request->items[0])) {
+            $ratings = explode(',', $request->items[0]);
+        } else{
+            $ratings = $request->items;
+        }
+//        dd($ratings);
+//        dd($request->items);
+        Rating::whereIn('id', $ratings)->update(['is_read'=>1]);
+        return redirect()->back();
+    }
 }

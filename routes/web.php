@@ -45,9 +45,6 @@ Route::get('/comment/{comment}', [CommentController::class, 'edit'])->name('comm
 Route::patch('/comment/{comment}', [CommentController::class, 'update'])->name('comment.update');
 Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
 
-Route::post('/rating/{post}' , [RatingController::class, 'index'])->name('rating.index');
+Route::post('/rating/{post}', [RatingController::class, 'index'])->name('rating.index');
+Route::patch('/rating', [RatingController::class, 'patch'])->name('rating.patch');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/profile/activity', [ProfileController::class, 'activity'])->name('profile.activity');
-    Route::post('/profile/mark-read', [ProfileController::class, 'markRead'])->name('profile.markRead');
-});
