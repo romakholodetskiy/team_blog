@@ -8,9 +8,11 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Posts_Categories;
 use App\Models\Rating;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class PostController extends Controller
 {
@@ -143,27 +145,53 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * @param string $id
+     *
+     * @return View
      */
-    public function edit(Post $post)
+    public function edit(Post $post): View
     {
-         //
+        return view('post.edit', [
+            'post' => $post,
+            'categories' => \App\Models\Category::all(),
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * @param StoreFormRequest $request
+     * @param string           $id
+     *
+     * @return RedirectResponse
      */
-    public function update(Request $request, string $id)
+    public function update(StoreFormRequest $request, Post $post): RedirectResponse
     {
-        //
+//        if($request->user()->cannot('update', $post)){
+//            abort(403);
+//        }
+        $data = $request->validated();
+        $post->name = $data['title'];
+        $post->short_description = $data['short_description'];
+        $post->description = $data['description'];
+
+        if ($request->hasFile('img_link')) {
+            $image = $request->file('img_link');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->StoreAs('/images', $imageName ,'public');
+            $post->img_link = $imagePath;
+        }
+
+        $post->save();
+        $post->categories()->sync($data['categories']);
+
+        return redirect()->route('my_blog');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
-        $post = Post::findOrFail($id);
         if ($post->author_id !== Auth::id()) {
             abort(403, 'Ви не маєте прав для видалення цього поста.');
         }
