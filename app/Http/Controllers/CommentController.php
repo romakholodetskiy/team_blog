@@ -79,11 +79,7 @@ class CommentController extends Controller
 
     public function patch(Request $request)
     {
-        if (explode(',', $request->items[0])) {
-            $comments = explode(',', $request->items[0]);
-        } else{
-            $comments = $request->items;
-        }
+        $comments = $request->items;
         Comment::whereIn('id', $comments)->update(['is_read'=>1]);
         return redirect()->back();
     }

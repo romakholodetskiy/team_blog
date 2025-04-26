@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Rating;
 use Illuminate\Http\Request;
@@ -33,11 +34,7 @@ class RatingController extends Controller
     }
     public function patch(Request $request)
     {
-        if (explode(',', $request->items[0])) {
-            $ratings = explode(',', $request->items[0]);
-        } else{
-            $ratings = $request->items;
-        }
+        $ratings = $request->items;
         Rating::whereIn('id', $ratings)->update(['is_read'=>1]);
         return redirect()->back();
     }

@@ -27,13 +27,13 @@
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
-                    @include('profile.partials.activity', ['ratings' => $ratings, 'ratingsId' => $ratingsId])
+                    @include('profile.partials.activity', ['ratings' => $ratings])
                 </div>
             </div>
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
-                    @include('profile.partials.comments', ['comments' => $comments, 'commentsId' => $commentsId])
+                    @include('profile.partials.comments', ['comments' => $comments])
                 </div>
             </div>
         </div>

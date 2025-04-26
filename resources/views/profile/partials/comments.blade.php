@@ -5,7 +5,9 @@
     <form action="{{ route('comment.patch') }}" method="post">
         @csrf
         @method('PATCH')
-        <input type="hidden" name="items[]" value="{{ implode(',', $commentsId) }}" class="btn-primary">
+        @foreach($comments as $comment)
+            <input type="hidden" name="items[]" value="{{ $comment->id}}" class="btn-primary">
+        @endforeach
         <button type="submit" name="mark_all" class="btn-primary">
             Mark all as read
         </button>

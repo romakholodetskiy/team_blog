@@ -5,7 +5,9 @@
     <form action="{{ route('rating.patch') }}" method="post">
         @csrf
         @method('PATCH')
-        <input type="hidden" name="items[]" value="{{ implode(',', $ratingsId) }}">
+        @foreach($ratings as $rating)
+            <input type="hidden" name="items[]" value="{{ $rating->id }}">
+        @endforeach
         <button type="submit" name="mark_all" class="btn-primary">
             Mark all as read
         </button>
